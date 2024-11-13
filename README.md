@@ -12,6 +12,7 @@ We implemented a [Jupyter notebook](./notebooks/tutorial.ipynb) that provides:
 2. Step-by-step implementation walkthrough
 3. Visualization of attention patterns
 4. Performance comparisons between different methods
+
 The notebook has been prepared for the purpose of [NeurIPS 2024 Dynamic Sparsity Workshop](https://dynamic-sparsity.github.io/) - check it out if you want to learn more about dynamic sparsity!
 
 ### Key Features
@@ -57,3 +58,9 @@ inference_handler = InferenceHandler(
 ## Contributing
 
 Contributions are welcome! Our goal is to keep this repository up-to-date with the latest Sparse Attention methods, by consistently adding new methods. Feel free to submit a Pull Request if 1) you want a new method to be added or 2) [even better] you have an implementation of a new Sparse Attention method!
+
+## Authors
+
+Piotr Nawrot - [Website](https://piotrnawrot.github.io/) - piotr@nawrot.org
+
+Edoardo Maria Ponti - [Website](https://ducdauge.github.io/) - eponti@ed.ac.uk
