@@ -1,10 +1,8 @@
 # nanoSparseAttention
 
-<!-- <img src="./assets/logo.jpeg" width="400" alt="logo"> -->
-<!-- <p align="center">
-  <img src="./assets/logo.jpeg" width="400" alt="logo">
-</p> -->
-<!-- ![logo](./assets/logo.jpeg) -->
+<p align="center">
+  <img src="./assets/logo.png" width="400" alt="logo">
+</p>
 
 ## Overview
 
