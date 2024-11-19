@@ -1,7 +1,10 @@
-
 # nanoSparseAttention
 
-A beginner-friendly PyTorch implementation of modern Sparse Attention mechanisms for efficient LLM inference.
+<!-- <img src="./assets/logo.jpeg" width="400" alt="logo"> -->
+<!-- <p align="center">
+  <img src="./assets/logo.jpeg" width="400" alt="logo">
+</p> -->
+<!-- ![logo](./assets/logo.jpeg) -->
 
 ## Overview
 
@@ -13,13 +16,15 @@ We implemented a [Jupyter notebook](./notebooks/tutorial.ipynb) that provides:
 3. Visualization of attention patterns
 4. Performance comparisons between different methods
 
-The notebook has been prepared for the purpose of [NeurIPS 2024 Dynamic Sparsity Workshop](https://dynamic-sparsity.github.io/) - check it out if you want to learn more about dynamic sparsity!
+The notebook has been prepared for the purpose of [NeurIPS 2024 Dynamic Sparsity Workshop](https://dynamic-sparsity.github.io/) - check it out if you want to learn more about dynamic execution, not only in the context of self-attention!
 
 ### Key Features
 
 - **Pure PyTorch Implementation**: All attention mechanisms are implemented in pure PyTorch for maximum clarity and ease of understanding.
 - **Real-world Testing**: Uses Llama-3.2-1B-Instruct model and FiscalNote/billsum dataset for practical experiments.
 - **Comprehensive Tutorial**: Includes a detailed Jupyter notebook explaining core concepts and implementations.
+- TODO - easily extensible to new models, datasets, and attention patterns
+- TODO - it supports both prefilling and generation stages, as well as combining the two
 
 ### Implemented Methods
 
