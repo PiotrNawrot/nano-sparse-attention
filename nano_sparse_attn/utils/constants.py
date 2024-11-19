@@ -9,7 +9,7 @@ CONSTANTS = {
         'num_examples': 3,
         'target_length_min': 4096,
         'target_length_max': 4096 + 512,
-        'device': "cuda",
+        'device': 'cuda' if torch.cuda.is_available() else 'cpu',
     },
     'hf_kwargs': {
         'trust_remote_code': True,

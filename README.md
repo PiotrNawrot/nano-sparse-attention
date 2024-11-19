@@ -23,8 +23,8 @@ The notebook has been prepared for the purpose of [NeurIPS 2024 Dynamic Sparsity
 - **Pure PyTorch Implementation**: All attention mechanisms are implemented in pure PyTorch for maximum clarity and ease of understanding.
 - **Real-world Testing**: Uses Llama-3.2-1B-Instruct model and FiscalNote/billsum dataset for practical experiments.
 - **Comprehensive Tutorial**: Includes a detailed Jupyter notebook explaining core concepts and implementations.
-- TODO - easily extensible to new models, datasets, and attention patterns
-- TODO - it supports both prefilling and generation stages, as well as combining the two
+- **Extensible Design**: Easy to add new models, datasets, and attention patterns through modular architecture.
+- **Flexible Inference**: Supports both prefilling and generation stages with ability to mix both at once.
 
 ### Implemented Methods
 
@@ -40,25 +40,77 @@ The notebook has been prepared for the purpose of [NeurIPS 2024 Dynamic Sparsity
 
 ## Installation
 
+Assuming that we want to use Python venv it's as easy as:
+
 ```
-    git clone https://github.com/PiotrNawrot/nano-sparse-attention
-    cd nano-sparse-attention
-    pip install -e .
+git clone https://github.com/PiotrNawrot/nano-sparse-attention
+cd nano-sparse-attention
+python3 -m venv .venv
+source .venv/bin/activate
+pip install --upgrade pip setuptools wheel psutil
+pip install -e ./
 ```
 
 ## Example Usage
 
-TODO
+The repository provides two main scripts for experimenting with sparse attention mechanisms:
 
-```
-inference_handler = InferenceHandler(
+### Prefilling Stage
+
+```python
+from nano_sparse_attn.attention import InferenceHandler, DenseAttention, LocalAndSinksAttention
+from nano_sparse_attn.utils import load_model_and_tokenizer, load_examples, update_attention, model_forward
+
+# Load model and prepare inputs
+model, tokenizer = load_model_and_tokenizer()
+model_inputs = load_examples(tokenizer, num_examples=1)
+
+# Create an inference handler with Local Window + Attention Sinks
+handler = InferenceHandler(
     prefill_attention=LocalAndSinksAttention(
-        window_size=640,
-        attention_sinks=16,
+        window_size=256,
+        attention_sinks=16
     ),
-    generation_attention=DenseAttention(),
+    generation_attention=DenseAttention()
 )
+
+# Update model's attention mechanism and run forward pass
+update_attention(model, handler)
+loss = model_forward(model, model_inputs, handler)
+
+# Get information about the attention mechanism
+info = handler.info()
+print(f"Loss: {loss}")
+print(f"Sparsity: {info['prefill']['sparsity']}")
 ```
+
+### Generation Stage
+
+```python
+# Assumes imports from the previous example
+from nano_sparse_attn.attention import SnapKVAttention
+
+# Create an inference handler with SnapKV for generation
+handler = InferenceHandler(
+    prefill_attention=DenseAttention(),
+    generation_attention=SnapKVAttention(
+        approximation_window=64,
+        token_capacity=256
+    )
+)
+
+# Update model's attention mechanism and run forward pass
+update_attention(model, handler)
+loss = model_forward(model, model_inputs, handler)
+
+# Get information about the attention mechanism
+info = handler.info()
+print(f"Loss: {loss}")
+print(f"Sparsity: {info['generation']['sparsity']}")
+```
+
+For ready-to-use scripts check out [main_prefill.py](./main_prefill.py) and [main_generate.py](./main_generate.py).
+For a detailed walkthrough of the repository and information about extending it to new models, datasets, and attention patterns, refer to [this README](./nano_sparse_attn/README.md).
 
 ## Contributing
 
