@@ -216,7 +216,7 @@ class VerticalAndSlashAttention(Attention):
             https://github.com/microsoft/MInference/blob/main/minference/modules/minference_forward.py#L101
         """
         batch_size, num_heads, queries, keys = matrix.shape
-        zero_matrix = torch.zeros((batch_size, num_heads, queries, queries)).to(matrix.device)
+        zero_matrix = torch.zeros((batch_size, num_heads, queries, queries), device=matrix.device)
         matrix_padded = torch.cat((zero_matrix, matrix, zero_matrix), -1)
         matrix_strided = matrix_padded.as_strided(
             (
